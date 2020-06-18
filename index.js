@@ -1,6 +1,7 @@
 const jayson = require('jayson');
 const {startMining, stopMining} = require('./mine');
 const {PORT} = require('./config');
+const {utxos} = require('./db');
 
 // create a server
 const server = jayson.server({
@@ -11,6 +12,13 @@ const server = jayson.server({
   stopMining: function(_, callback) {
     callback(null, 'success!');
     stopMining();
+  },
+  getBalance: function([address], callback) {
+    const ourUTXOs = utxos.filter(x => {
+      return x.owner === address && !x.spent;
+    });
+    const sum = ourUTXOs.reduce((p,c) => p + c.amount, 0);
+    callback(null, sum);
   }
 });
 

@@ -1,25 +1,37 @@
-const jayson = require('jayson');
 const {startMining, stopMining} = require('./mine');
 const {PORT} = require('./config');
-const {utxos} = require('./db');
+const {utxos, blockchain} = require('./db');
+const express = require('express');
+const app = express();
+const cors = require('cors');
 
-// create a server
-const server = jayson.server({
-  startMining: function(_, callback) {
-    callback(null, 'success!');
-    startMining();
-  },
-  stopMining: function(_, callback) {
-    callback(null, 'success!');
-    stopMining();
-  },
-  getBalance: function([address], callback) {
-    const ourUTXOs = utxos.filter(x => {
-      return x.owner === address && !x.spent;
-    });
-    const sum = ourUTXOs.reduce((p,c) => p + c.amount, 0);
-    callback(null, sum);
+// localhost can have cross origin errors
+// depending on the browser you use!
+app.use(cors());
+app.use(express.json());
+
+app.post('/', (req, res) => {
+  const {method, params} = req.body;
+  if(method === 'startMining') {
+      startMining();
+      res.send({ blockNumber: blockchain.blockHeight() });
+      return;
+  }
+  if(method === 'stopMining') {
+      startMining();
+      res.send(200);
+      return;
+  }
+  if(method === "getBalance") {
+      const [address] = params;
+      const ourUTXOs = utxos.filter(x => {
+        return x.owner === address && !x.spent;
+      });
+      const sum = ourUTXOs.reduce((p,c) => p + c.amount, 0);
+      res.send({ balance: sum.toString()});
   }
 });
 
-server.http().listen(PORT);
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}!`);
+});

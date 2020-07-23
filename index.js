@@ -18,8 +18,8 @@ app.post('/', (req, res) => {
       return;
   }
   if(method === 'stopMining') {
-      startMining();
-      res.send(200);
+      stopMining();
+      res.send({ blockNumber: blockchain.blockHeight() });
       return;
   }
   if(method === "getBalance") {

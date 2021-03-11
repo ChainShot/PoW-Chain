@@ -6,7 +6,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "crypto-js": "^4.0.0",
-    "elliptic": "^6.5.3",
+    "elliptic": "^6.5.4",
     "express": "^4.17.1",
     "jayson": "^3.3.3",
     "yargs": "^15.3.1"

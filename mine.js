@@ -20,9 +20,9 @@ function stopMining() {
 
 function mine() {
   if(!mining) return;
-
-  const block = new Block();
-
+  
+  const block = new Block(db.blockchain.lastHash());
+  
   // TODO: add transactions from the mempool
 
   const coinbaseUTXO = new UTXO(PUBLIC_KEY, BLOCK_REWARD);
@@ -37,7 +37,7 @@ function mine() {
 
   db.blockchain.addBlock(block);
 
-  console.log(`Mined block #${db.blockchain.blockHeight()} with a hash of ${block.hash()} at nonce ${block.nonce}`);
+  console.log(`Mined block #${db.blockchain.blockHeight()}, hash: ${block.hash()}, nonce: ${block.nonce}, previous hash: ${block.previousHash}`);
 
   setTimeout(mine, 2500);
 }

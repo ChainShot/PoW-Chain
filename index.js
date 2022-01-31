@@ -49,9 +49,14 @@ app.post('/', (req, res) => {
     } else {
       res.send({result: "Not enough funds."});
     }
-    
     return;
-}
+  }
+  if(method === "getBlock") {
+    const [blockNumber] = params;
+    block = blockchain.getBlock(blockNumber);
+    console.log(block)
+    res.send({result: JSON.stringify(block)});
+  }
 });
 
 app.listen(PORT, () => {

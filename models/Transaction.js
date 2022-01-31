@@ -13,6 +13,9 @@ class Transaction {
       utxos.push(output);
     });
   }
+  getFee() {
+    return this.inputs.reduce((p,c) => p + c.amount, 0) - this.outputs.reduce((p,c) => p + c.amount, 0);
+  }
 }
 
 module.exports = Transaction;

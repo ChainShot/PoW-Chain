@@ -1,0 +1,29 @@
+<html>
+  <body>
+    <h1>
+      Block Explorer
+    </h1>
+
+    <span>Block Number: </span><input id="blockNumber"></input>
+    <button id="get-block">
+      Submit
+    </button>
+
+    <p></p>
+    <div id="block">
+      <div>
+        <span>Timestamp: </span><span id="timestamp"></span>
+      </div>
+      <div>
+        <span>Nonce: </span><span id="nonce"></span>
+      </div>
+      <h2>
+        Transactions:
+      </h2>
+      <div id="transactions">
+      </div>
+    </div>
+
+    <script type="module" src="./explorer.js"></script>
+  </body>
+</html>

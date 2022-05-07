@@ -10,7 +10,7 @@ Once you've installed the dependencies you can run the server with `node index` 
 
 ## Client
 
-To start the client application you'll need to install [parceljs](https://parceljs.org/getting_started.html).
+To start the client application you'll need to install [parceljs](https://en.parceljs.org/getting_started.html).
 
 Once you have done that you can navigate to the `/client` folder in a terminal and run `parcel index.html` which will start your client at port `1234` by default.
 
